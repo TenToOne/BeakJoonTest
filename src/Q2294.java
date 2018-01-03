@@ -4,6 +4,7 @@
 출력 : 첫째줄에 사용한 동전의 최소 개수를 출력한다. 불가능한 경우에는 -1을 출력한다.
  */
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Q2294 {
@@ -11,5 +12,36 @@ public class Q2294 {
         Scanner input = new Scanner(System.in);
         int n = input.nextInt();
         int k = input.nextInt();
+        int[] prices = new int[n];
+        for(int i=0;i<n;i++) {
+            prices[i] = input.nextInt();
+        }
+        System.out.println(search(prices,k,1));
+    }
+
+    public static int search(int[] prices,int money,int count){
+        ArrayList<Integer> arrayList = new ArrayList<Integer>();
+        for(int i=0;i<prices.length;i++){
+            if(prices[i]<=money)
+            arrayList.add(prices[i]);
+        }
+        if(arrayList.contains(money)) return count;
+        while(!arrayList.isEmpty()){
+//            System.out.println(arrayList);
+            count++;
+            int l = arrayList.size();
+            for(int i=0;i<l;i++){
+                for(int j=0;j<prices.length;j++){
+                    int sum = arrayList.get(i)+prices[j];
+                    if(sum==money) return count;
+                    if(sum<money&&!arrayList.contains(sum))
+                    arrayList.add(sum);
+                }
+            }
+            for(int i=0;i<l;i++){
+                arrayList.remove(0);
+            }
+        }
+        return -1;
     }
 }
