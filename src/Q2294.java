@@ -15,7 +15,9 @@ public class Q2294 {
         int[] coin = new int[N];
         for(int i=0;i<N;i++){
             coin[i]=input.nextInt();
-            prices[coin[i]-1]=1;
+            if(coin[i]<K) {
+                prices[coin[i] - 1] = 1;
+            }
         }
 /*        for(int i=0;i<K;i++){
             System.out.print(prices[i]+" ");
@@ -24,7 +26,6 @@ public class Q2294 {
         for(int i=0;i<K;i++){
              if(prices[i]!=0){
                 for(int j=0;j<N;j++){
-                    System.out.println(i+coin[j]);
                     if(i+coin[j]<K&&(prices[i+coin[j]]==0||prices[i+coin[j]]>prices[i])){
                         prices[i+coin[j]]=prices[i]+1;
                     }
@@ -36,7 +37,7 @@ public class Q2294 {
             System.out.println();*/
         }
         if(prices[K-1]==0)
-            System.out.println(0);
+            System.out.println(-1);
         else
             System.out.println(prices[K-1]);
     }
