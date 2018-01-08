@@ -4,44 +4,40 @@
 출력 : 첫째줄에 사용한 동전의 최소 개수를 출력한다. 불가능한 경우에는 -1을 출력한다.
  */
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Q2294 {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        int n = input.nextInt();
-        int k = input.nextInt();
-        int[] prices = new int[n];
-        for(int i=0;i<n;i++) {
-            prices[i] = input.nextInt();
+        int N = input.nextInt();
+        int K = input.nextInt();
+        int[] prices= new int[K];
+        int[] coin = new int[N];
+        for(int i=0;i<N;i++){
+            coin[i]=input.nextInt();
+            prices[coin[i]-1]=1;
         }
-        System.out.println(search(prices,k,1));
-    }
-
-    public static int search(int[] prices,int money,int count){
-        ArrayList<Integer> arrayList = new ArrayList<Integer>();
-        for(int i=0;i<prices.length;i++){
-            if(prices[i]<=money)
-            arrayList.add(prices[i]);
+/*        for(int i=0;i<K;i++){
+            System.out.print(prices[i]+" ");
         }
-        if(arrayList.contains(money)) return count;
-        while(!arrayList.isEmpty()){
-//            System.out.println(arrayList);
-            count++;
-            int l = arrayList.size();
-            for(int i=0;i<l;i++){
-                for(int j=0;j<prices.length;j++){
-                    int sum = arrayList.get(i)+prices[j];
-                    if(sum==money) return count;
-                    if(sum<money&&!arrayList.contains(sum))
-                    arrayList.add(sum);
+        System.out.println();*/
+        for(int i=0;i<K;i++){
+             if(prices[i]!=0){
+                for(int j=0;j<N;j++){
+                    System.out.println(i+coin[j]);
+                    if(i+coin[j]<K&&(prices[i+coin[j]]==0||prices[i+coin[j]]>prices[i])){
+                        prices[i+coin[j]]=prices[i]+1;
+                    }
                 }
             }
-            for(int i=0;i<l;i++){
-                arrayList.remove(0);
+/*            for(int a=0;a<K;a++){
+                System.out.print(prices[a]+" ");
             }
+            System.out.println();*/
         }
-        return -1;
+        if(prices[K-1]==0)
+            System.out.println(0);
+        else
+            System.out.println(prices[K-1]);
     }
 }
