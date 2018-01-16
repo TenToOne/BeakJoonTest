@@ -25,6 +25,10 @@ public class Q1965 {
             }
             if(boxes[i]==0) boxes[i]=1;
         }
-        System.out.println(boxes[N-1]);
+        int max=1;
+        for(int i=1;i<N;i++){
+            if(boxes[i]>max) max=boxes[i];
+        }
+        System.out.println(max);
     }
 }
